@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 
 
@@ -49,6 +49,12 @@ async function run() {
             res.send(result);
         })
 
+        app.get('/chef/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = new ObjectId(id);
+            const result = await chefCollection.findOne(query);
+            res.send(result);
+        })
 
 
     } finally {
